@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GroupyPsy Help">
+    <meta name="author" content="Moss, UvA">
+    <title>GroupyPsy - Help</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <!-- Font Awesome (if needed) -->
+    <link href="{{ url_for('static', filename='css/all.css') }}" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="wrapper">
+        <nav class="navbar navbar-dark bg-dark sidebar">
+            <!-- Logo in Sidebar -->
+            <a class="navbar-brand d-flex align-items-center justify-content-center" href="/">
+                <img src="{{ url_for('static', filename='images/groupypsy.png') }}" alt="GroupyPsy Logo" width="100" height="auto">
+                <h2> &emsp; GroupyPsy</h2>
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/help">
+                        <i class="fas fa-book"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <!-- Banner -->
+                <div class="banner text-center mb-4 p-3">
+                    <h1 class="banner-title">Help and Instructions</h1>
+                </div>
+
+                <!-- Help Content -->
+                <div class="container mt-4">
+
+                    <div class="panel mb-4 p-3">
+                        <h2 style="color: #bc0031;">Application Usage</h2>
+                        <p>
+                            Upload the four required files on the <a href="/help"><strong>Dashboard</strong></a> page. See details of the four files and examples of each below.<br>
+                            Once all files are uploaded, click the <strong>Process</strong> button to generate the output.<br>
+                            You can view the processed data or download it as a CSV file.
+                        </p>
+                        <p>
+                            When you are done, you can clear the data from the server by clicking the <strong>Clear Data</strong> button.
+                        </p>
+                    </div>
+
+
+                    
+
+                    <div class="panel mb-4 p-3">
+                        <h2  style="color: #bc0031;">Description of Input Files</h2>
+
+
+                        <div class="panel mb-4 p-3" style="border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; padding: 15px; margin-top: 10px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); width: 50%; text-align: left;">
+                            <h4>Download Example Files</h4>
+                            <div>
+                                <p style="margin: 0 0 10px; font-size: 14px; color: #555;">
+                                    You can download all the example CSV files used in the explanations below in a single zip archive here:
+                                </p>
+                                <a 
+                                    href="{{ url_for('static', filename='examples/groupyPsy_example_files.zip') }}" 
+                                    class="btn btn-primary" 
+                                    style="display: inline-block; margin-top: 10px;" 
+                                    download>
+                                    Download Examples
+                                </a>
+                            </div>
+                        </div>
+                        
+                        
+                        
+
+                        
+                        <h3 style="color:#1d7492">Students File</h3>
+                        <p>
+                            The Students file contains information about each student and is primary indexed by <strong>Student_Num</strong>, a unique identifier for each student.
+                            Each row is one student, and the columns specify their details such as ID, first and last names, email address. There are N additional columns, where N is the number of Requirements. Each column title is the Requirement_Num for the corresponding Requirement, and values are 1 or 0 to indicate whether the student in that row meets (1) or does not meet (0) that requirement.
+                            The required columns are:
+                        </p>
+                        <p>
+                            The required columns are:
+                        </p>
+                        <ul>
+                            <li><strong>Student_Num</strong>: A unique identifier for each student.</li>
+                            <li><strong>ID</strong>: The student ID number.</li>
+                            <li><strong>firstName</strong>: First name.</li>
+                            <li><strong>lastName</strong>: Last name.</li>
+                            <li><strong>emailAddress</strong>: The email address of the student.</li>
+                            <li><strong>Requirement_01...Requirement_N</strong>: The N Requirements, with the column names matching the Requirements table primary index, Requirement_Num.</li>
+                        </ul>                    
+                        <!-- Students Example -->
+                        <h4>Example Students File</h4>
+                        <div class="table-responsive">
+                            <table id="studentsTable" class="table table-striped table-bordered" style="width:100%" data-page-length='5'>
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="panel mb-4 p-3">
+                        <h3 style="color:#1d7492">Projects File</h3>
+                        <p>
+                            The Projects file lists all available projects, and is primary indexed by <strong>Project_Num</strong>. 
+                            In addition to the name of the Supervisor, this table provides information on the Capacity of each project, as well as the project requirements. 
+                            Each Requirement_N column has the title corresponding to the N primary indices of the Requirements table, Requirement_Num. For each row (project), the correspoding Requirement_ column indicates whether that equirement is (1) or is not (0) required for that project.
+                        </p>
+                        <p>
+                            The required columns are:
+                        </p>
+                        <ul>
+                            <li><strong>Project_Num</strong>: A unique identifier for each project.</li>
+                            <li><strong>Supervisor</strong>: The name of the Supervisor.</li>
+                            <li><strong>Capacity</strong>: The maximum number of students permitted on this project.</li>
+                            <li><strong>Requirement_01...Requirement_N</strong>: Which of the Requirements are required for this project.</li>
+                        </ul>                    
+                        <!-- Projects Example -->
+                        <h4>Example Projects File</h4>
+                        <div class="table-responsive">
+                            <table id="projectsTable" class="table table-striped table-bordered" style="width:100%" data-page-length='5'>
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    <div class="panel mb-4 p-3">
+                        <h3 style="color:#1d7492">Requirements File</h3>
+                        <p>
+                            The Requirements file lists the possible requirements <i>across</i> the various projects. This table is primary indexed by <strong>Requirement_Num</strong>.
+                            The Description column specifies details of that requirement.
+                        </p>
+                        <p>
+                            The required columns are:
+                        </p>
+
+                        <ul>
+                            <li><strong>Requirement_Num</strong>: The unique identifier for the requirement.</li>
+                            <li><strong>Descriptiob</strong>: Human readable description of the requirement.</li>
+                        </ul>
+                        <!-- Requirements Example -->
+                        <h4>Example Requirements File</h4>
+                        <div class="table-responsive">
+                            <table id="requirementsTable" class="table table-striped table-bordered" style="width:100%" data-page-length='5'>
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="panel mb-4 p-3">
+                        <h3 style="color:#1d7492">Choices File</h3>
+                        <p>
+                            The Choices file contains student preferences for projects, and has no primary index of its own. 
+                            Each row is a student, with the Student_Num correspoding to the values of the Student file.
+                            Each column is a project, with the Project_Num correspoding to the values of the Project file.
+                            In each row (i.e., for each student), the various columns have values from 1...N, corresponding to the N projects, with the most desirable project with a value 1 and the least desired with a value N.
+                        </p>
+                        <p>
+                            The required columns are:
+                        </p>
+                        <ul>
+                            <li><strong>Student_Num</strong>: Student identifiers, corresponding to the Student table.</li>
+                            <li><strong>Project_01...Project_N</strong>: Project identifiers, corresponding to the Projects table.</li>
+                        </ul>
+                        <!-- Choices Example -->
+                        <h4>Example Choices File</h4>
+                        <div class="table-responsive">
+                            <table id="choicesTable" class="table table-striped table-bordered" style="width:100%" data-page-length='5'>
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+
+            <!-- Footer -->
+            <footer class="bg-white py-4 mt-auto">
+                <div class="container my-auto">
+                    <div class="text-center text-muted small">
+                        &copy; 2025 GroupyPsy. All Rights Reserved. <br>
+                        Version: <span id="appVersion">1.0.0-alpha</span> | Contact: <a href="mailto:m.shukla@uva.nl" id="contactInfo">m.shukla@uva.nl</a>
+                                </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/help.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GroupyPsy Project Dashboard">
+    <meta name="author" content="Moss, UvA">
+    <title>GroupyPsy - Dashboard</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/filepond.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sweetalert2.min.css') }}" rel="stylesheet">
+    <!-- Include jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="wrapper">
+        <nav class="navbar navbar-dark bg-dark sidebar">
+            <!-- Logo in Sidebar -->
+            <a class="navbar-brand d-flex align-items-center justify-content-center" href="/">
+                <img src="{{ url_for('static', filename='images/groupypsy.png') }}" alt="GroupyPsy Logo" width="100" height="auto">
+                <!--  <span class="sidebar-brand-text mx-3">GroupyPsy</span> -->
+                <h2> &emsp; GroupyPsy</h2>
+            </a>    
+            
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/help">
+                        <i class="fas fa-book"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
+
+
+        </nav>
+
+         <!-- Page Content -->
+         <div id="content-wrapper" class="d-flex flex-column" style="padding-left: 1.5em; padding-right: 1.5em;">
+            <div id="content">
+
+                 <!-- Banner -->
+                <div class="banner text-center mb-4 p-3">
+                    <h1 class="banner-title">Assign Students to Projects</h1>
+                </div>
+
+
+                <!-- Explanation Panel -->
+                <div class="panel mb-4 p-3">
+                    <h3 class="panel-title">Instructions</h3>
+                    <p class="panel-text">
+                        Please upload the following four files to process your data:
+                    </p>
+                    <ul class="panel-list">
+                        <li>Students File: Contains details of all students.</li>
+                        <li>Projects File: Lists all available projects.</li>
+                        <li>Requirements File: Specifies project requirements.</li>
+                        <li>Choices File: Contains student project preferences.</li>
+                    </ul>
+                    <p class="panel-text">
+                        Once all files are uploaded, click the <strong>Process</strong> button to generate the output file.
+                        Once you are done, please delete the data from the server by clicking the <strong>Clear Data</strong> button.
+                    </p>
+                    <a class="nav-link" href="/help" style="color: #2aa5d0;">
+                        <i class="fas fa-book"></i>
+                        <span>Please refer to the Help page for details of usage and of the files to be uploaded.</span>
+                    </a>
+                </div>
+                
+
+                <div class="container mt-4">
+                <h2 class="mb-4">Upload Your Files</h2>
+
+                <!-- 2x2 Grid for Upload Elements -->
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <label for="studentsFile" class="form-label">Students File</label>
+                        <input type="file" name="file" id="studentsFile" class="filepond" accept=".csv" />
+                    </div>
+                    <div class="col">
+                        <label for="projectsFile" class="form-label">Projects File</label>
+                        <input type="file" name="file" id="projectsFile" class="filepond" accept=".csv" />
+                    </div>
+                    <div class="col">
+                        <label for="requirementsFile" class="form-label">Requirements File</label>
+                        <input type="file" name="file" id="requirementsFile" class="filepond" accept=".csv" />
+                    </div>
+                    <div class="col">
+                        <label for="choicesFile" class="form-label">Choices File</label>
+                        <input type="file" name="file" id="choicesFile" class="filepond" accept=".csv" />
+                    </div>
+                </div>
+
+                <!-- Process Button -->
+                <div class="mt-4">
+                    <button id="processButton" class="btn btn-primary" >Process</button>
+                    <button id="clearDataButton" class="btn btn-danger">Clear Data</button>
+                </div>
+                
+                <!-- Download Link -->
+                <div id="downloadLinkContainer" class="mt-4"></div>
+
+            </div>
+
+            <!-- Plot of data -->
+            <div id="plotContainer" class="mt-4"></div>     
+
+
+            <div id="csvTableContainer" class="mt-4">
+                <table id="csvTable" class="display" style="width:100%" >
+                    <thead>
+                        <tr id="csvTableHeaders"></tr>
+                    </thead>
+                    <tbody id="csvTableBody"></tbody>
+                </table>
+            </div>
+            
+            
+
+
+            <!-- Footer -->
+            <footer class="bg-white py-4 mt-auto">
+                <div class="container my-auto">
+                    <div class="text-center text-muted small">
+                        &copy; 2025 GroupyPsy. All Rights Reserved. <br>
+                        Version: <span id="appVersion">1.0.0-alpha</span> | Contact: <a href="mailto:m.shukla@uva.nl" id="contactInfo">m.shukla@uva.nl</a>
+                                </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+
+    
+    <!-- Scripts -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+    <script src="{{ url_for('static', filename='js/filepond.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+﻿Project_Num,Supervisor,Capacity,Requirement_01,Requirement_02,Requirement_03,Requirement_04,Requirement_05
+Project_01,René Descartes,9,1,0,0,0,0
+Project_02,Gottfried Wilhelm Leibniz,12,0,0,1,0,0
+Project_03,Immanuel Kant,6,0,0,0,0,0
+Project_04,Johann Friedrich Herbart,5,0,1,0,0,0
+Project_05,Gustav Theodor Fechner,6,0,0,0,1,0
+Project_06,Hermann von Helmholtz,6,0,0,0,0,0
+Project_07,Wilhelm Wundt,9,0,0,0,0,0
+Project_08,Francis Galton,6,0,0,0,1,0
+Project_09,Hermann Ebbinghaus,6,0,0,0,0,1
+Project_10,William James,6,0,0,1,0,0
+Project_11,Sigmund Freud,6,1,0,0,0,0
+Project_12,Carl Jung,6,0,0,0,0,0
+Project_13,Alfred Adler,6,1,0,0,0,0
