@@ -8,6 +8,8 @@ To use,
 
 • Create a virtual environment with Python 13 and requirements.txt from the repo
 
+• NB: you might need to install PuLP via conda, see https://anaconda.org/conda-forge/pulp
+
 • In a terminal, run flask run —cert=adhoc to start the server
 
 • Open the webpage indicated; usually https://127.0.0.1:5000
